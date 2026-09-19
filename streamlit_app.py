@@ -89,8 +89,24 @@ st.sidebar.markdown("### How to Use")
 st.sidebar.write("Switch between the interactive dashboard and the downloadable static poster using the toggle above. In dashboard mode, use the dropdown to explore each health indicator.")
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### Submitted By")
-st.sidebar.write("Team Gramperials")
+st.sidebar.markdown("### About Us")
+
+team_member_one_name = "Full Name Here"
+team_member_one_role = "Software Engineer"
+team_member_one_school = "University Name Here"
+
+team_member_two_name = "Full Name Here"
+team_member_two_role = "Data Scientist"
+team_member_two_school = "University Name Here"
+
+st.sidebar.markdown(f"**{team_member_one_name}**")
+st.sidebar.write(f"{team_member_one_role}, {team_member_one_school}")
+
+st.sidebar.markdown(f"**{team_member_two_name}**")
+st.sidebar.write(f"{team_member_two_role}, {team_member_two_school}")
+
+st.sidebar.markdown("---")
+st.sidebar.caption("NISR 2026 Infographic Competition")
 
 if view_mode == "Dynamic Dashboard":
 
