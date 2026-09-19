@@ -317,7 +317,7 @@ else:
     team_member_one_school = "Carnegie Mellon University - Africa"
     team_member_one_photo_path = "images/member_one.jpg"
 
-    team_member_two_name = "Full Name Here"
+    team_member_two_name = "Betty Benimana"
     team_member_two_role = "Data Scientist"
     team_member_two_school = "African Leadership University"
     team_member_two_photo_path = "images/member_two.jpg"
