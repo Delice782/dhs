@@ -19,6 +19,16 @@ custom_style = """
     div[data-baseweb="radio"] label {
         color: #ffffff !important;
     }
+    section[data-testid="stSidebar"] button {
+        background-color: transparent;
+        border: 1px solid rgba(255,255,255,0.3);
+        color: #ffffff;
+        text-align: left;
+    }
+    section[data-testid="stSidebar"] button:hover {
+        border: 1px solid #e07a1f;
+        color: #e07a1f;
+    }
     .headline-card {
         background-color: #ffffff;
         border-radius: 12px;
@@ -75,15 +85,45 @@ indicator_values_lookup = {
 province_names = ["Kigali", "National Average", "East Province"]
 province_fertility_values = [3.1, 3.7, 4.0]
 
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "Dynamic Dashboard"
+
+if "last_view_mode_value" not in st.session_state:
+    st.session_state.last_view_mode_value = "Dynamic Dashboard"
+
+view_mode_options = ["Dynamic Dashboard", "Static Poster"]
+view_mode_default_index = view_mode_options.index(st.session_state.last_view_mode_value)
+
 st.sidebar.markdown("## 📊 Rwanda DHS 2025")
+
 st.sidebar.markdown("### View Mode")
-view_mode = st.sidebar.radio(
-    "Choose which page to view",
-    ["Dynamic Dashboard", "Static Poster", "About Us"],
+view_mode_selection = st.sidebar.radio(
+    "View Mode",
+    view_mode_options,
+    index=view_mode_default_index,
     label_visibility="collapsed",
 )
 
-if view_mode == "Dynamic Dashboard":
+if view_mode_selection != st.session_state.last_view_mode_value:
+    st.session_state.last_view_mode_value = view_mode_selection
+    st.session_state.current_page = view_mode_selection
+
+st.sidebar.markdown("---")
+
+if st.sidebar.button("About This Data", use_container_width=True):
+    st.session_state.current_page = "About This Data"
+
+if st.sidebar.button("How to Use", use_container_width=True):
+    st.session_state.current_page = "How to Use"
+
+st.sidebar.markdown("---")
+
+if st.sidebar.button("About the Team", use_container_width=True):
+    st.session_state.current_page = "About the Team"
+
+selected_section = st.session_state.current_page
+
+if selected_section == "Dynamic Dashboard":
 
     st.title("Rwanda's Maternal and Child Health Progress, 2020 to 2025")
     st.caption("Source: Rwanda Demographic and Health Survey 2025, National Institute of Statistics of Rwanda")
@@ -95,7 +135,6 @@ if view_mode == "Dynamic Dashboard":
     for column_index in range(len(indicator_names)):
         indicator_name = indicator_names[column_index]
         indicator_values = indicator_values_lookup[indicator_name]
-        starting_value = indicator_values[0]
         ending_value = indicator_values[1]
         with metric_columns[column_index]:
             st.markdown(
@@ -191,7 +230,7 @@ if view_mode == "Dynamic Dashboard":
 
     st.table(summary_rows)
 
-elif view_mode == "Static Poster":
+elif selected_section == "Static Poster":
 
     st.title("Static Poster Preview")
     st.caption("This is the fixed, print style version of the data story. Download it below as a PNG for submission.")
@@ -255,36 +294,42 @@ elif view_mode == "Static Poster":
         mime="image/png",
     )
 
+elif selected_section == "About This Data":
+
+    st.title("About This Data")
+    st.write("Source: Rwanda Demographic and Health Survey 2025 (RDHS7), National Institute of Statistics of Rwanda")
+    st.write("Fieldwork period: June to November 2025")
+    st.write("Implemented by NISR in collaboration with the Ministry of Health")
+
+elif selected_section == "How to Use":
+
+    st.title("How to Use This Dashboard")
+    st.write("Use View Mode in the sidebar to switch between the interactive dashboard and the static poster.")
+    st.write("In the Dynamic Dashboard, use the dropdown to explore each health indicator and see how it changed between 2020 and 2025.")
+    st.write("In the Static Poster section, click the download button to save a PNG version of the fixed data story for submission.")
+
 else:
 
-    st.title("About This Project")
+    st.title("About the Team")
 
-    with st.expander("About This Data", expanded=True):
-        st.write("Source: Rwanda Demographic and Health Survey 2025 (RDHS7), National Institute of Statistics of Rwanda")
-        st.write("Fieldwork period: June to November 2025")
+    team_member_one_name = "Full Name Here"
+    team_member_one_role = "Software Engineer"
+    team_member_one_school = "University Name Here"
 
-    with st.expander("How to Use This Dashboard"):
-        st.write("Switch between the interactive dashboard and the downloadable static poster using the view mode selector in the sidebar. In dashboard mode, use the dropdown to explore each health indicator.")
+    team_member_two_name = "Full Name Here"
+    team_member_two_role = "Data Scientist"
+    team_member_two_school = "University Name Here"
 
-    with st.expander("Meet the Team", expanded=True):
-        team_member_one_name = "Full Name Here"
-        team_member_one_role = "Software Engineer"
-        team_member_one_school = "University Name Here"
+    team_columns = st.columns(2)
 
-        team_member_two_name = "Full Name Here"
-        team_member_two_role = "Data Scientist"
-        team_member_two_school = "University Name Here"
+    with team_columns[0]:
+        st.markdown(f"**{team_member_one_name}**")
+        st.write(team_member_one_role)
+        st.write(team_member_one_school)
 
-        team_columns = st.columns(2)
-
-        with team_columns[0]:
-            st.markdown(f"**{team_member_one_name}**")
-            st.write(team_member_one_role)
-            st.write(team_member_one_school)
-
-        with team_columns[1]:
-            st.markdown(f"**{team_member_two_name}**")
-            st.write(team_member_two_role)
-            st.write(team_member_two_school)
+    with team_columns[1]:
+        st.markdown(f"**{team_member_two_name}**")
+        st.write(team_member_two_role)
+        st.write(team_member_two_school)
 
     st.caption("Submitted for the NISR 2026 Infographic Competition")
