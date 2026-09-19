@@ -312,22 +312,43 @@ else:
 
     st.title("About the Team")
 
-    team_member_one_name = "Delice Ishimwe"
+    team_member_one_name = "Delice"
     team_member_one_role = "Software Engineer"
-    team_member_one_school = "Carnegie Mellon University - Africa"
+    team_member_one_school = "University Name Here"
+    team_member_one_photo_path = "images/member_one.jpg"
 
-    team_member_two_name = "Betty Benimana"
+    team_member_two_name = "Full Name Here"
     team_member_two_role = "Data Scientist"
-    team_member_two_school = "African Leadership University (ALU)"
+    team_member_two_school = "University Name Here"
+    team_member_two_photo_path = "images/member_two.jpg"
+
+    photo_style = """
+    <style>
+        .team-photo img {
+            border-radius: 50%;
+            border: 3px solid #e07a1f;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+        }
+    </style>
+    """
+    st.markdown(photo_style, unsafe_allow_html=True)
 
     team_columns = st.columns(2)
 
     with team_columns[0]:
+        st.markdown('<div class="team-photo">', unsafe_allow_html=True)
+        st.image(team_member_one_photo_path, width=160)
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown(f"**{team_member_one_name}**")
         st.write(team_member_one_role)
         st.write(team_member_one_school)
 
     with team_columns[1]:
+        st.markdown('<div class="team-photo">', unsafe_allow_html=True)
+        st.image(team_member_two_photo_path, width=160)
+        st.markdown('</div>', unsafe_allow_html=True)
         st.markdown(f"**{team_member_two_name}**")
         st.write(team_member_two_role)
         st.write(team_member_two_school)
