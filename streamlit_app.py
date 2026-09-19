@@ -90,8 +90,7 @@ st.sidebar.write("Switch between the interactive dashboard and the downloadable 
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Submitted By")
-st.sidebar.write("Team name and university here")
-st.sidebar.write("NISR 2026 Infographic Competition")
+st.sidebar.write("Team Gramperials")
 
 if view_mode == "Dynamic Dashboard":
 
