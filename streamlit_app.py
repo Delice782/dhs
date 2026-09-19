@@ -77,36 +77,11 @@ province_fertility_values = [3.1, 3.7, 4.0]
 
 st.sidebar.markdown("## 📊 Rwanda DHS 2025")
 st.sidebar.markdown("### View Mode")
-view_mode = st.sidebar.radio("Choose which infographic to view", ["Dynamic Dashboard", "Static Poster"], label_visibility="collapsed")
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("### About This Data")
-st.sidebar.write("Source: Rwanda Demographic and Health Survey 2025 (RDHS7), National Institute of Statistics of Rwanda")
-st.sidebar.write("Fieldwork period: June to November 2025")
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("### How to Use")
-st.sidebar.write("Switch between the interactive dashboard and the downloadable static poster using the toggle above. In dashboard mode, use the dropdown to explore each health indicator.")
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("### About Us")
-
-team_member_one_name = "Full Name Here"
-team_member_one_role = "Software Engineer"
-team_member_one_school = "University Name Here"
-
-team_member_two_name = "Full Name Here"
-team_member_two_role = "Data Scientist"
-team_member_two_school = "University Name Here"
-
-st.sidebar.markdown(f"**{team_member_one_name}**")
-st.sidebar.write(f"{team_member_one_role}, {team_member_one_school}")
-
-st.sidebar.markdown(f"**{team_member_two_name}**")
-st.sidebar.write(f"{team_member_two_role}, {team_member_two_school}")
-
-st.sidebar.markdown("---")
-st.sidebar.caption("NISR 2026 Infographic Competition")
+view_mode = st.sidebar.radio(
+    "Choose which page to view",
+    ["Dynamic Dashboard", "Static Poster", "About Us"],
+    label_visibility="collapsed",
+)
 
 if view_mode == "Dynamic Dashboard":
 
@@ -122,7 +97,6 @@ if view_mode == "Dynamic Dashboard":
         indicator_values = indicator_values_lookup[indicator_name]
         starting_value = indicator_values[0]
         ending_value = indicator_values[1]
-        value_change = ending_value - starting_value
         with metric_columns[column_index]:
             st.markdown(
                 f"""<div class="headline-card">
@@ -217,7 +191,7 @@ if view_mode == "Dynamic Dashboard":
 
     st.table(summary_rows)
 
-else:
+elif view_mode == "Static Poster":
 
     st.title("Static Poster Preview")
     st.caption("This is the fixed, print style version of the data story. Download it below as a PNG for submission.")
@@ -280,3 +254,37 @@ else:
         file_name="rwanda_dhs_2025_static_poster.png",
         mime="image/png",
     )
+
+else:
+
+    st.title("About This Project")
+
+    with st.expander("About This Data", expanded=True):
+        st.write("Source: Rwanda Demographic and Health Survey 2025 (RDHS7), National Institute of Statistics of Rwanda")
+        st.write("Fieldwork period: June to November 2025")
+
+    with st.expander("How to Use This Dashboard"):
+        st.write("Switch between the interactive dashboard and the downloadable static poster using the view mode selector in the sidebar. In dashboard mode, use the dropdown to explore each health indicator.")
+
+    with st.expander("Meet the Team", expanded=True):
+        team_member_one_name = "Full Name Here"
+        team_member_one_role = "Software Engineer"
+        team_member_one_school = "University Name Here"
+
+        team_member_two_name = "Full Name Here"
+        team_member_two_role = "Data Scientist"
+        team_member_two_school = "University Name Here"
+
+        team_columns = st.columns(2)
+
+        with team_columns[0]:
+            st.markdown(f"**{team_member_one_name}**")
+            st.write(team_member_one_role)
+            st.write(team_member_one_school)
+
+        with team_columns[1]:
+            st.markdown(f"**{team_member_two_name}**")
+            st.write(team_member_two_role)
+            st.write(team_member_two_school)
+
+    st.caption("Submitted for the NISR 2026 Infographic Competition")
