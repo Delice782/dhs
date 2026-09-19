@@ -312,13 +312,13 @@ else:
 
     st.title("About the Team")
 
-    team_member_one_name = "Full Name Here"
+    team_member_one_name = "Delice Ishimwe"
     team_member_one_role = "Software Engineer"
-    team_member_one_school = "University Name Here"
+    team_member_one_school = "Carnegie Mellon University - Africa"
 
-    team_member_two_name = "Full Name Here"
+    team_member_two_name = "Betty Benimana"
     team_member_two_role = "Data Scientist"
-    team_member_two_school = "University Name Here"
+    team_member_two_school = "African Leadership University (ALU)"
 
     team_columns = st.columns(2)
 
