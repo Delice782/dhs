@@ -160,35 +160,18 @@ if selected_section == "Dynamic Dashboard":
     else:
         percent_change = 0
 
-        trend_figure = go.Figure()
-        trend_figure.add_trace(
-            go.Scatter(
-                x=survey_years,
-                y=selected_values,
-                mode="lines+markers",
-                line=dict(width=4, color="#0b3d63"),
-                marker=dict(size=12, color="#e07a1f"),
-                hovertemplate="%{y}<extra></extra>",
-            )
+    trend_figure = go.Figure()
+    trend_figure.add_trace(
+        go.Scatter(
+            x=survey_years,
+            y=selected_values,
+            mode="lines+markers+text",
+            text=selected_values,
+            textposition="top center",
+            line=dict(width=4, color="#0b3d63"),
+            marker=dict(size=12, color="#e07a1f"),
         )
-    
-        for point_index in range(len(survey_years)):
-            point_year = survey_years[point_index]
-            point_value = selected_values[point_index]
-            trend_figure.add_annotation(
-                x=point_year,
-                y=point_value,
-                text=str(point_value),
-                showarrow=False,
-                yshift=22,
-                font=dict(size=14, color="#0b3d63"),
-                bgcolor="#ffffff",
-                bordercolor="#e07a1f",
-                borderwidth=1,
-                borderpad=3,
-            )
-    
-        
+    )
     trend_figure.update_layout(
         title=selected_indicator,
         xaxis_title="Survey Year",
