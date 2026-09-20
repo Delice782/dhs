@@ -319,7 +319,7 @@ else:
 
     team_member_two_name = "Betty Benimana"
     team_member_two_role = "Data Scientist"
-    team_member_two_school = "African Leadership University"
+    team_member_two_school = "African Leadership University (ALU)"
     team_member_two_photo_path = "images/member_two.jpg"
 
     photo_style = """
